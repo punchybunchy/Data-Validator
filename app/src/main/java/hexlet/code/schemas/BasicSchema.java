@@ -9,32 +9,42 @@ import java.util.List;
 public class BasicSchema {
 
     private boolean required;
-    private String textContent;
-    private Integer minLength;
     private final List<Check> checklist = new ArrayList<>();
 
-    protected BasicSchema() {
-
-    }
-
-    public final void setRequired() {
+    private final Check strInstanceCheck = e -> e instanceof String;
+    public final void setStrRequired() {
         this.required = true;
-        checklist.add(isRequired);
+        checklist.add(strInstanceCheck);
+        checklist.add(str -> !str.toString().isEmpty());
     }
 
-    public final void setTextContent(String text) {
-        this.textContent = text;
-        checklist.add(doesContain);
+    public final void setContains(String text) {
+        checklist.add(strInstanceCheck);
+        checklist.add(str -> str.toString().contains(text));
     }
 
-    public final void setMinLength(Integer length) {
-        this.minLength = length;
-        checklist.add(isMinLength);
+    public final void setMinLength(Integer minLength) {
+        checklist.add(strInstanceCheck);
+        checklist.add(str -> str.toString().length() > minLength);
     }
 
-    private final Check isRequired = str -> str instanceof String && !str.toString().isEmpty();
-    private final Check doesContain = str -> str.toString().contains(textContent);
-    private final Check isMinLength = str -> str.toString().length() > minLength;
+    private final Check numInstanceCheck = e -> e instanceof Number;
+    public final void setNumRequired() {
+        this.required = true;
+        checklist.add(numInstanceCheck);
+    }
+
+    public final void setPositive() {
+        checklist.add(numInstanceCheck);
+        checklist.add(num -> (int) num > 0);
+    }
+
+    public final void setRange(int number1, int number2) {
+        int minValue = Math.min(number1, number2);
+        int maxValue = Math.max(number1, number2);
+        checklist.add(numInstanceCheck);
+        checklist.add(num -> ((int) num >= minValue) && ((int) num <= maxValue));
+    }
 
     public final boolean isValid(Object request) {
         if (this.required) {
