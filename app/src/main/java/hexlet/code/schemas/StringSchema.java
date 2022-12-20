@@ -2,7 +2,7 @@ package hexlet.code.schemas;
 
 public class StringSchema extends BasicSchema {
 
-      public final StringSchema required() {
+    public final StringSchema required() {
         setStrRequired();
         return this;
     }

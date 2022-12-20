@@ -4,6 +4,7 @@ import hexlet.code.Check;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class BasicSchema {
@@ -44,6 +45,17 @@ public class BasicSchema {
         int maxValue = Math.max(number1, number2);
         checklist.add(numInstanceCheck);
         checklist.add(num -> ((int) num >= minValue) && ((int) num <= maxValue));
+    }
+
+    private final Check mapInstanceCheck = e -> e instanceof Map;
+    public final void setMapRequired() {
+        this.required = true;
+        checklist.add(mapInstanceCheck);
+    }
+
+    public final void setSizeof(int number) {
+        checklist.add(mapInstanceCheck);
+        checklist.add(m -> ((Map<Object, Object>) m).size() == number);
     }
 
     public final boolean isValid(Object request) {
