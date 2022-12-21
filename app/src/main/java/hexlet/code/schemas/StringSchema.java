@@ -1,19 +1,25 @@
 package hexlet.code.schemas;
 
-public class StringSchema extends BasicSchema {
+public class StringSchema extends BaseSchema {
+
+    public StringSchema() {
+
+        addToChecklist(str -> str instanceof String);
+    }
 
     public final StringSchema required() {
-        setStrRequired();
+        setRequired();
+        addToChecklist(str -> !str.toString().isEmpty());
         return this;
     }
 
-    public final StringSchema minLength(Integer number) {
-        setMinLength(number);
+    public final StringSchema minLength(int length) {
+        addToChecklist(str -> str.toString().length() > length);
         return this;
     }
 
     public final StringSchema contains(String text) {
-        setContains(text);
+        addToChecklist(str -> str.toString().replaceAll(" ", "").contains(text));
         return this;
     }
 
