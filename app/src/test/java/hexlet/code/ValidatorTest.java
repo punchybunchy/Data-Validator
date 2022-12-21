@@ -211,9 +211,15 @@ public class ValidatorTest {
         assertThat(actual4).isFalse();
 //------------------------------------------------------
         Map<String, Object> human5 = new HashMap<>();
-        human4.put("name", "Valya");
-        human4.put("email", positiveNumber);
-        boolean actual5 = schema.isValid(human5); // false
+        human5.put("name", "Valya");
+        human5.put("email", positiveNumber);
+        boolean actual5 = schema.isValid(human5); // true
         assertThat(actual5).isTrue();
+//------------------------------------------------------
+        Map<String, Object> human6 = new HashMap<>();
+        human6.put("lastname", "Messi");
+        human6.put("email", "messi@gmail.com");
+        boolean actual6 = schema.isValid(human6); // false
+        assertThat(actual6).isFalse();
     }
 }

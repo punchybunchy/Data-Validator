@@ -34,7 +34,7 @@ public class MapSchema extends BaseSchema {
                 Object request = map.get(key);
                 return value.isValid(request);
             }
-            return true;
+            return value.isValid(null);
         });
     }
 }
