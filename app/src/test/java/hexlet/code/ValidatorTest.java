@@ -46,12 +46,12 @@ public class ValidatorTest {
         boolean actual1 = schema.contains("abc").isValid(null);
         assertThat(actual1).isEqualTo(expected1);
 
-        boolean expected2 = false;
-        boolean actual2 = schema.required().contains("abcdefg").isValid("abc");
+        boolean expected2 = true;
+        boolean actual2 = schema.required().contains("abcd").isValid("Deabcdg");
         assertThat(actual2).isEqualTo(expected2);
 
-        boolean expected3 = true;
-        boolean actual3 = schema.contains("abc").isValid("abcde fg");
+        boolean expected3 = false;
+        boolean actual3 = schema.contains("abc").isValid("abdcd efg");
         assertThat(actual3).isEqualTo(expected3);
     }
 

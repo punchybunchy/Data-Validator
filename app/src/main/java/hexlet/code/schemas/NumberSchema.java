@@ -4,7 +4,7 @@ public class NumberSchema extends BaseSchema {
 
     public NumberSchema() {
 
-        addToChecklist(num -> num instanceof Number);
+        addToChecks(num -> num instanceof Number);
     }
 
     public final NumberSchema required() {
@@ -13,14 +13,14 @@ public class NumberSchema extends BaseSchema {
     }
 
     public final NumberSchema positive() {
-        addToChecklist(num -> (int) num > 0);
+        addToChecks(num -> (int) num > 0);
         return this;
     }
 
     public final NumberSchema range(int number1, int number2) {
         int minValue = Math.min(number1, number2);
         int maxValue = Math.max(number1, number2);
-        addToChecklist(num -> ((int) num >= minValue) && ((int) num <= maxValue));
+        addToChecks(num -> ((int) num >= minValue) && ((int) num <= maxValue));
         return this;
     }
 }

@@ -4,22 +4,22 @@ public class StringSchema extends BaseSchema {
 
     public StringSchema() {
 
-        addToChecklist(str -> str instanceof String);
+        addToChecks(str -> str instanceof String);
     }
 
     public final StringSchema required() {
         setRequired();
-        addToChecklist(str -> !str.toString().isEmpty());
+        addToChecks(str -> !str.toString().isEmpty());
         return this;
     }
 
     public final StringSchema minLength(int length) {
-        addToChecklist(str -> str.toString().length() > length);
+        addToChecks(str -> str.toString().length() > length);
         return this;
     }
 
     public final StringSchema contains(String text) {
-        addToChecklist(str -> str.toString().replaceAll(" ", "").contains(text));
+        addToChecks(str -> str.toString().contains(text));
         return this;
     }
 
