@@ -20,21 +20,20 @@ public class ValidatorTest {
         Validator validator = new Validator();
         StringSchema schema = validator.string();
 
-        boolean expected1 = true;
         boolean actual1 = schema.isValid(null);
-        assertThat(actual1).isEqualTo(expected1);
+        assertThat(actual1).isTrue();
 
-        boolean expected2 = false;
-        boolean actual2 = schema.required().isValid(null);
-        assertThat(actual2).isEqualTo(expected2);
+        boolean actual2 = schema.isValid("");
+        assertThat(actual2).isTrue();
 
-        boolean expected3 = true;
-        boolean actual3 = schema.isValid("abc");
-        assertThat(actual3).isEqualTo(expected3);
+        boolean actual3 = schema.required().isValid(null);
+        assertThat(actual3).isFalse();
 
-        boolean expected4 = false;
-        boolean actual4 = schema.isValid(number);
-        assertThat(expected4).isEqualTo(actual4);
+        boolean actual4 = schema.isValid("abc");
+        assertThat(actual4).isTrue();
+
+        boolean actual5 = schema.isValid(number);
+        assertThat(actual5).isFalse();
     }
 
     @Test
@@ -42,17 +41,14 @@ public class ValidatorTest {
         Validator validator = new Validator();
         StringSchema schema = validator.string();
 
-        boolean expected1 = true;
         boolean actual1 = schema.contains("abc").isValid(null);
-        assertThat(actual1).isEqualTo(expected1);
+        assertThat(actual1).isTrue();
 
-        boolean expected2 = true;
         boolean actual2 = schema.required().contains("abcd").isValid("Deabcdg");
-        assertThat(actual2).isEqualTo(expected2);
+        assertThat(actual2).isTrue();
 
-        boolean expected3 = false;
         boolean actual3 = schema.contains("abc").isValid("abdcd efg");
-        assertThat(actual3).isEqualTo(expected3);
+        assertThat(actual3).isFalse();
     }
 
     @Test
@@ -62,17 +58,14 @@ public class ValidatorTest {
         Validator validator = new Validator();
         StringSchema schema = validator.string();
 
-        boolean expected1 = true;
         boolean actual1 = schema.minLength(length).isValid(null);
-        assertThat(actual1).isEqualTo(expected1);
+        assertThat(actual1).isTrue();
 
-        boolean expected2 = false;
         boolean actual2 = schema.required().minLength(length).isValid("ab");
-        assertThat(actual2).isEqualTo(expected2);
+        assertThat(actual2).isFalse();
 
-        boolean expected3 = true;
         boolean actual3 = schema.minLength(length).isValid("abcdefg");
-        assertThat(actual3).isEqualTo(expected3);
+        assertThat(actual3).isTrue();
     }
 
     @Test
