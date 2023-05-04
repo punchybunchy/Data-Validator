@@ -26,7 +26,7 @@ Before you can build this project, you must install and configure the following 
 make build
 ```
 
-## Start application on localhost
+## Start application
 
 ```bash
 make start
